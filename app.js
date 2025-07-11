@@ -36,6 +36,6 @@ function showBabysitters() {
         Age: ${bs.age}<br>
         <button>Book</button>
         `;
-        list.appendChild(card):
+        list.appendChild(card);
     });
 }
