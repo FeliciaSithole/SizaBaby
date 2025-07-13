@@ -26,24 +26,70 @@
 
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
+        // Import the functions from Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyD-KrcVTrTYPyoRLtWn0eYVXlsGdG7NMCA",
             authDomain: "sizababy-2a016.firebaseapp.com",
             projectId: "sizababy-2a016",
-            storageBucket: "sizababy-2a016.firebasestorage.app",
+            storageBucket: "sizababy-2a016.appspot.com",  // fixed typo: should be .appspot.com
             messagingSenderId: "958810729788",
             appId: "1:958810729788:web:45f24883a0dc44292dc239"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Sign up function
+        window.signUp = function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                alert("Signup successful!");
+            })
+            .catch((error) => {
+                alert("Error: " + error.message);
+            });
+        };
+
+        // Login function
+        window.login = function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                alert("Login successful!");
+            })
+            .catch((error) => {
+                alert("Error: " + error.message);
+            });
+        };
+
+        // Logout function
+        window.logout = function () {
+            signOut(auth).then(() => {
+            alert("Logged out!");
+            });
+        };
+
+        // Listen for auth state changes
+        onAuthStateChanged(auth, (user) => {
+            const status = document.getElementById("userStatus");
+            if (user) {
+            status.innerText = "Logged in as: " + user.email;
+            } else {
+            status.innerText = "Not logged in";
+            }
+        });
     </script>
+
 
     <script src="app.js"></script>
 </body>
