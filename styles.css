@@ -25,3 +25,8 @@ button {
     border-left: 4px solid #42bbe0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+#babysitterList {
+    display: none; 
+} /* hide by default */
+

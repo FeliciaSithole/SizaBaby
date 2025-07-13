@@ -9,7 +9,7 @@
 <body>
     <h1>Welcome to SizaBaby</h1>
     <p>Find trusted babysitters in your area</p>
-    <button onclick="showBabySitters()">Show Babysitters Nearby</button>
+    <!-- <button onclick="showBabySitters()">Show Babysitters Nearby</button> -->
     <div id="babysitterList"></div>
 
     <h2>Login or Sign Up</h2>
@@ -81,13 +81,19 @@
 
         // Listen for auth state changes
         onAuthStateChanged(auth, (user) => {
-            const status = document.getElementById("userStatus");
-            if (user) {
+        const status = document.getElementById("userStatus");
+        const babysitterList = document.getElementById("babysitterList");
+
+        if (user) {
             status.innerText = "Logged in as: " + user.email;
-            } else {
+            babysitterList.style.display = "block"; // show babysitters
+            showBabysitters(); // load the list
+        } else {
             status.innerText = "Not logged in";
-            }
+            babysitterList.style.display = "none"; // hide list
+        }
         });
+
     </script>
 
 
