@@ -39,3 +39,47 @@ function showBabysitters() {
         list.appendChild(card);
     });
 }
+
+const auth = firebase.auth();
+
+function signUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(user => {
+      alert("Sign-up successful!");
+    })
+    .catch(error => {
+      alert("Error: " + error.message);
+    });
+}
+
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(user => {
+      alert("Login successful!");
+    })
+    .catch(error => {
+      alert("Error: " + error.message);
+    });
+}
+
+function logout() {
+  auth.signOut()
+    .then(() => {
+      alert("Logged out!");
+    });
+}
+
+auth.onAuthStateChanged(user => {
+  const status = document.getElementById("userStatus");
+  if (user) {
+    status.innerText = "Logged in as: " + user.email;
+  } else {
+    status.innerText = "Not logged in";
+  }
+});
