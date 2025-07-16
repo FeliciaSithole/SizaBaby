@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Babysitter</title>
+    <link rel="stylesheet" href="styles.css"
+</head>
+<body>
+    <h1>Book a Babysitter</h1>
+
+    <h2>Available Babysitters</h2>
+    <div id="babysitterList"></div>
+    <button onclick="showBabysitters()">Show Babysitters</button>
+
+    <h3>Booking Form</h3>
+    <input type="text" id="bookingBabysitterName" placeholder="Babysitter Name" /><br/><br/>
+    <input type="date" id="bookingDate" /><br/><br/>
+    <input type="time" id="bookingTime" /><br/><br/>
+    <input type="number" id="bookingHours" placeholder="Number of Hours" /><br/><br/>
+    <textarea id="bookingMessage" placeholder="Optional Message"></textarea><br/><br/>
+    <button onclick="submitBooking()">Send Booking Request</button>
+    <p id="bookingStatus"></p>
+
+    <script type="module" src="app.js"></script>
+
+</body>
+</html>
