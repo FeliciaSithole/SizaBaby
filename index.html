@@ -32,65 +32,73 @@
     <button onclick="registerBabysitter()">Submit</button>
 
     <script type="module">
-         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+        // Firebase imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        signOut,
-        onAuthStateChanged
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
         } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
         // Your Firebase config
         const firebaseConfig = {
-        apiKey: "AIzaSyD-KrcVTrTYPyoRLtWn0eYVXlsGdG7NMCA",
-        authDomain: "sizababy-2a016.firebaseapp.com",
-        projectId: "sizababy-2a016",
-        storageBucket: "sizababy-2a016.appspot.com",
-        messagingSenderId: "958810729788",
-        appId: "1:958810729788:web:45f24883a0dc44292dc239"
+            apiKey: "AIzaSyD-KrcVTrTYPyoRLtWn0eYVXlsGdG7NMCA",
+            authDomain: "sizababy-2a016.firebaseapp.com",
+            projectId: "sizababy-2a016",
+            storageBucket: "sizababy-2a016.appspot.com",
+            messagingSenderId: "958810729788",
+            appId: "1:958810729788:web:45f24883a0dc44292dc239"
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-
-        // Correct way to get Auth in modular Firebase
+            const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Make functions visible to HTML buttons
+        // ✅ Expose functions globally so buttons work
         window.signUp = function () {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(() => alert("Signup successful!"))
-            .catch(error => alert("Signup error: " + error.message));
+            createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                alert("Signup successful!");
+            })
+            .catch(error => {
+                alert("Signup error: " + error.message);
+            });
         };
 
-            window.login = function () {
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        window.login = function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then(() => alert("Login successful!"))
-            .catch(error => alert("Login error: " + error.message));
+            signInWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                alert("Login successful!");
+            })
+            .catch(error => {
+                alert("Login error: " + error.message);
+            });
         };
 
-            window.logout = function () {
-        signOut(auth).then(() => alert("Logged out!"));
+        window.logout = function () {
+            signOut(auth).then(() => {
+            alert("Logged out!");
+            });
         };
 
-            onAuthStateChanged(auth, (user) => {
-        const status = document.getElementById("userStatus");
+        onAuthStateChanged(auth, (user) => {
+            const status = document.getElementById("userStatus");
             if (user) {
             status.innerText = "Logged in as: " + user.email;
             } else {
             status.innerText = "Not logged in";
-        }
-    });
-
-
+            }
+            });
     </script>
+
 
 
     <script src="app.js"></script>

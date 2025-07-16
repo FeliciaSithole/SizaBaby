@@ -29,7 +29,7 @@ function showBabysitters() {
   });
 }
 
-const auth = firebase.auth();
+// const auth = firebase.auth();
 
 function signUp() {
   const email = document.getElementById("email").value;
@@ -64,11 +64,11 @@ function logout() {
     });
 }
 
-auth.onAuthStateChanged(user => {
-  const status = document.getElementById("userStatus");
-  if (user) {
-    status.innerText = "Logged in as: " + user.email;
-  } else {
-    status.innerText = "Not logged in";
-  }
-});
+//  auth.onAuthStateChanged(user => {
+//   const status = document.getElementById("userStatus");
+//   if (user) {
+//     status.innerText = "Logged in as: " + user.email;
+//   } else {
+//     status.innerText = "Not logged in";
+//   }
+// });
