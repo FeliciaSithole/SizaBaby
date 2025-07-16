@@ -181,3 +181,49 @@ function logout() {
             status.innerText = "Booking failed: " + error.message;
             });
         };
+
+window.registerBabysitter = function () {
+  const name = document.getElementById("bsName").value.trim();
+  const age = document.getElementById("bsAge").value.trim();
+  const location = document.getElementById("bsLocation").value.trim();
+  const availability = document.getElementById("bsAvailability").value.trim();
+
+  if (!name || !age || !location || !availability) {
+    alert("Please fill in all the fields.");
+    return;
+  }
+
+  const user = auth.currentUser;
+  if (!user) {
+    alert("You must be logged in to register as a babysitter.");
+    return;
+  }
+
+  const babysitterData = {
+    name,
+    age,
+    location,
+    availability,
+    email: user.email // optional: tie the babysitter to the current user
+  };
+
+  const babysittersRef = ref(database, "babysitters/");
+  const newBsRef = push(babysittersRef);
+
+  set(newBsRef, babysitterData)
+    .then(() => {
+      alert("Babysitter registered successfully!");
+
+      // Clear the form
+      document.getElementById("bsName").value = "";
+      document.getElementById("bsAge").value = "";
+      document.getElementById("bsLocation").value = "";
+      document.getElementById("bsAvailability").value = "";
+
+      // Optionally refresh list
+      showBabysitters();
+    })
+    .catch((error) => {
+      alert("Registration failed: " + error.message);
+    });
+};
