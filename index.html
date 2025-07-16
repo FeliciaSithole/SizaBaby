@@ -10,6 +10,7 @@
     <h1>Welcome to SizaBaby</h1>
     <p>Find trusted babysitters in your area</p>
     <!-- <button onclick="showBabySitters()">Show Babysitters Nearby</button> -->
+    <h2>Available Babysitters</h2>
     <div id="babysitterList"></div>
 
     <h3>Book a Babysitter</h3>
@@ -36,81 +37,13 @@
     <p id="userStatus"></p>
 
     <h2>Register as Babysitter</h2>
+    
     <input type="text" id="bsName" placeholder="Full Name"><br><br>
     <input type="number" id="bsAge" placeholder="Age"><br><br>
     <input type="text" id="bsLocation" placeholder="Location (e.g. Katlehong)"><br><br>
     <input type="text" id="bsAvailability" placeholder="When are you available?"><br><br>
     <button onclick="registerBabysitter()">Submit</button>
 
-    <script type="module">
-        // Firebase imports
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-        // Your Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyD-KrcVTrTYPyoRLtWn0eYVXlsGdG7NMCA",
-            authDomain: "sizababy-2a016.firebaseapp.com",
-            projectId: "sizababy-2a016",
-            storageBucket: "sizababy-2a016.appspot.com",
-            messagingSenderId: "958810729788",
-            appId: "1:958810729788:web:45f24883a0dc44292dc239"
-        };
-
-        // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // ✅ Expose functions globally so buttons work
-        window.signUp = function () {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            createUserWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                alert("Signup successful!");
-            })
-            .catch(error => {
-                alert("Signup error: " + error.message);
-            });
-        };
-
-        window.login = function () {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                alert("Login successful!");
-            })
-            .catch(error => {
-                alert("Login error: " + error.message);
-            });
-        };
-
-        window.logout = function () {
-            signOut(auth).then(() => {
-            alert("Logged out!");
-            });
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            const status = document.getElementById("userStatus");
-            if (user) {
-            status.innerText = "Logged in as: " + user.email;
-            } else {
-            status.innerText = "Not logged in";
-            }
-            });
-    </script>
-
-    
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
