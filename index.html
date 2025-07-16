@@ -12,6 +12,17 @@
     <!-- <button onclick="showBabySitters()">Show Babysitters Nearby</button> -->
     <div id="babysitterList"></div>
 
+    <h3>Book a Babysitter</h3>
+    <input type="text" id="bookingBabysitterName" placeholder="Babysitter Name"><br><br>
+    <input type="date" id="bookingDate"><br><br>
+    <input type="time" id="bookingTime"><br><br>
+    <input type="number" id="bookingHours" placeholder="Number of Hours"><br><br>
+    <textarea id="bookingMessage" placeholder="Optional Message"></textarea><br><br>
+    <button onclick="submitBooking()">Send Booking Request</button>
+
+    <p id="bookingStatus"></p>
+
+
     <h2>Login or Sign Up</h2>
 
     <input type="email" id="email" placeholder="Email">
@@ -99,8 +110,7 @@
             });
     </script>
 
-
-
+    
     <script src="app.js"></script>
 </body>
 </html>
