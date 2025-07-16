@@ -24,8 +24,17 @@
 
     <p id="userStatus"></p>
 
+    <h2>Register as Babysitter</h2>
+    <input type="text" id="bsName" placeholder="Full Name"><br><br>
+    <input type="number" id="bsAge" placeholder="Age"><br><br>
+    <input type="text" id="bsLocation" placeholder="Location (e.g. Katlehong)"><br><br>
+    <input type="text" id="bsAvailability" placeholder="When are you available?"><br><br>
+    <button onclick="registerBabysitter()">Submit</button>
 
     <script type="module">
+        //Firebase Database SDK
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
         // Import the functions from Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
@@ -93,6 +102,38 @@
             babysitterList.style.display = "none"; // hide list
         }
         });
+
+        const database = getDatabase(app);
+
+        window.registerBabysitter = function () {
+        const name = document.getElementById("bsName").value;
+        const age = document.getElementById("bsAge").value;
+        const location = document.getElementById("bsLocation").value;
+        const availability = document.getElementById("bsAvailability").value;
+
+        if (!name || !age || !location || !availability) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        const babysitterRef = ref(database, 'babysitters/');
+        const newBsRef = push(babysitterRef);
+
+        set(newBsRef, {
+            name: name,
+            age: age,
+            location: location,
+            availability: availability
+        }).then(() => {
+            alert("Babysitter registered successfully!");
+            document.getElementById("bsName").value = "";
+            document.getElementById("bsAge").value = "";
+            document.getElementById("bsLocation").value = "";
+            document.getElementById("bsAvailability").value = "";
+        }).catch((error) => {
+            alert("Error: " + error.message);
+        });
+        };
 
     </script>
 

@@ -1,43 +1,32 @@
 function showBabysitters() {
-    const babysitters = [
-        {
-            name: "Felicia",
-            surname: "Sithole",
-            location: "Katlehong",
-            availability: "Weekends",
-            age: 17
-        },
-        {
-            name: "Malwandla",
-            surname: "Hlungwani",
-            location: "Vosloorus",
-            availability: "Friday night and Saturday",
-            age: 18
-        },
-        {
-            name: "Yvonne",
-            surname: "Mathe",
-            location: "Tembisa",
-            availability: "Full weekends and holidays",
-            age: 16
-        }
-    ];
+  const db = getDatabase();
+  const babysitterRef = ref(db, 'babysitters/');
+  const list = document.getElementById("babysitterList");
 
-    const list = document.getElementById("babysitterList");
-    list.innerHTML = ""; //Clear the list before adding
+  list.innerHTML = ""; // Clear existing content
 
-    babysitters.forEach(bs => {
+  onValue(babysitterRef, (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+
+      Object.keys(data).forEach((key) => {
+        const bs = data[key];
+
         const card = document.createElement("div");
         card.className = "babysitter-card";
         card.innerHTML = `
-        <strong>${bs.name}</strong><br>
-        Location: ${bs.location}<br>
-        Availability: ${bs.availability}<br>
-        Age: ${bs.age}<br>
-        <button>Book</button>
+          <strong>${bs.name}</strong><br>
+            Location: ${bs.location}<br>
+            Availability: ${bs.availability}<br>
+            Age: ${bs.age}<br>
+          <button>Book</button>
         `;
         list.appendChild(card);
-    });
+      });
+    } else {
+      list.innerHTML = "<p>No babysitters have registered yet.</p>";
+    }
+  });
 }
 
 const auth = firebase.auth();
